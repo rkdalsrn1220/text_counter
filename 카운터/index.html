@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>입력 글자 수 실시간 표시기</title>
+  <meta name="description" content="입력된 텍스트의 글자 수를 띄어쓰기 포함/제외 선택하여 실시간으로 보여주는 HTML 도구입니다.">
+  <meta name="author" content="시.대">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 600px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #343a40;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+      color: #495057;
+    }
+    textarea, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      resize: vertical;
+      margin-bottom: 10px;
+    }
+    textarea:focus, select:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+    .counter {
+      font-size: 0.95em;
+      color: #495057;
+      margin-top: 10px;
+      text-align: right;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.75em;
+      color: #aaa;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✍️ 글자 수 실시간 표시기</h2>
+
+    <label for="textArea">텍스트 입력</label>
+    <textarea id="textArea" rows="10" maxlength="100000" placeholder="최대 100,000자까지 입력할 수 있습니다" oninput="updateCount()"></textarea>
+
+    <label for="spaceOption">띄어쓰기 포함 여부</label>
+    <select id="spaceOption" onchange="updateCount()">
+      <option value="with">포함</option>
+      <option value="without">제외</option>
+    </select>
+
+    <div class="counter">
+      🔢 현재 글자 수: <span id="charCount">0</span> / 100,000자
+    </div>
+
+    <footer>
+      © 2025 제작자: <strong style="color: #aaa;">시.대</strong>
+    </footer>
+  </div>
+
+  <script>
+    function updateCount() {
+      const text = document.getElementById("textArea").value;
+      const option = document.getElementById("spaceOption").value;
+      const count = option === "with" ? text.length : text.replace(/\s/g, '').length;
+      document.getElementById("charCount").innerText = count;
+    }
+  </script>
+</body>
+</html>
